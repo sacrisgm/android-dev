@@ -7,7 +7,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 //import android.os.*;
-//import android.util.*; // h
+//import android.util.*; // hh=
 //import android.app.*;
 
 public class MainActivity extends Activity implements View.OnClickListener{
