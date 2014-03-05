@@ -10,7 +10,7 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:text="@string/game_start"
 		android:id="@+id/txtWin"
-		android:layout_marginTop="22dp"
+		android:layout_marginTop="10dp"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
 
@@ -20,13 +20,12 @@
 		android:layout_width="75dp"
 		android:layout_height="75dp"
 		android:id="@+id/btn00"
-		android:layout_marginTop="50dp"
 		android:height="75dp"
 		android:width="75dp"
 		android:layout_below="@+id/txtWin"
 		android:layout_alignParentLeft="true"
-
-		android:layout_marginLeft="29dp"/>
+		android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -45,8 +44,7 @@
 		android:width="75dp"
 		android:layout_alignTop="@+id/btn01"
 		android:layout_alignParentRight="true"
-
-		android:layout_marginRight="26dp"/>
+		android:layout_marginRight="100dp"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -56,8 +54,7 @@
 		android:width="75dp"
 		android:layout_below="@+id/btn00"
 		android:layout_alignLeft="@+id/btn00"
-
-		android:layout_marginTop="50dp"/>
+		android:layout_marginTop="20dp"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -82,12 +79,11 @@
 		android:layout_width="75dp"
 		android:layout_height="75dp"
 		android:id="@+id/btn20"
+        android:height="75dp"
+        android:width="75dp"
 		android:layout_alignBaseline="@+id/btn21"
 		android:layout_alignBottom="@+id/btn21"
-		android:layout_alignLeft="@+id/btn10"
-
-		android:height="75dp"
-		android:width="75dp"/>
+		android:layout_alignLeft="@+id/btn10"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -97,7 +93,7 @@
 		android:width="75dp"
 		android:layout_below="@+id/btn11"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="50dp"/>
+		android:layout_marginTop="20dp"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -113,8 +109,9 @@
 		android:layout_height="wrap_content"
 		android:text="@string/button_reset"
 		android:id="@+id/btnRst"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"/>
+        android:layout_alignTop="@+id/txtWin"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"/>
 
 
 </RelativeLayout>
