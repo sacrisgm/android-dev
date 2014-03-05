@@ -1,5 +1,6 @@
 package com.sacrisgm.crestnol;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements View.OnClickListener{
 
     Button btnGm[][], btnRst;
-    TextView txtWin, txtDbg;
+    TextView txtWin;
     String btnLabel = "X";
 	
     @Override
@@ -33,107 +34,143 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btnGm[2][0] = (Button) findViewById(R.id.btn20);
         btnGm[2][1] = (Button) findViewById(R.id.btn21);
         btnGm[2][2] = (Button) findViewById(R.id.btn22);
-		btnRst = (Button) findViewById(R.id.btnRst);                                                                                                                                                                                                                                                                           
-		
-        txtWin = (TextView) findViewById(R.id.txtWin);
-		txtDbg = (TextView) findViewById(R.id.txtDbg);
-        for(byte i=0; i < 3; i++)
-			for(byte j=0; j < 3; j++)
-        		btnGm[i][j].setOnClickListener(this);
+		btnRst = (Button) findViewById(R.id.btnRst);
+
+        for(Button btnx[]: btnGm)
+            for(Button btnxy: btnx)
+        		btnxy.setOnClickListener(this);
 		btnRst.setOnClickListener(this);
 
+        txtWin = (TextView) findViewById(R.id.txtWin);
     }
 
 
-    public boolean checkWin()
+    private boolean checkWin()
     {
+        byte winCor=0, winPth=0;
+
+        /*
+        winPth направление линии победы
+         0 - используем, как флаг ( отсутсвие победы )
+         1 - горизонталь
+         2 - вертикаль
+         3 - диагональ от 0:0 к 2:2
+         4 - диагональ от 0:2 к 2:0
+        */
 		
 		for(byte i=0; i < 3; i++)
 		{
 			if( !btnGm[i][i].getText().toString().equals("") )
-			{	
+			{
 				if( i == 1 )
 				{
-					for(byte j=0, z=2; j < 3; j++, z--)
-					{
-						if(j==2)
-						{
-							return true;
-						}
-						if(btnGm[j][z].getText() != btnGm[j+1][z-1].getText())
-							break;
-					}
-					
-					for(byte j=0; j < 3; j++)
-					{
-						if(j==2)
-						{
-							return true;
-						}
-						if(btnGm[j][j].getText() != btnGm[j+1][j+1].getText())
-							break;
-					}
-				}
-				
-				for(byte j=0; j < 3; j++)
-				{
-					if( j==2 )
-					{
-						return true;
-					}
-					if( btnGm[i][j].getText() != btnGm[i][j+1].getText() )
-						break;
-				}
-				
+                    winPth=3; // диагональ от 0:0 к 2:2
+                    for(byte j=0; j < 2; j++)
+                    {
+                        if(btnGm[j][j].getText() != btnGm[j+1][j+1].getText())
+                        {
+                            winPth=0;
+                            break;
+                        }
+                    }
+                    if(winPth!=0)
+                        break;
 
-				for(byte j=0; j < 3; j++)
-				{
-					if( j==2 )
+                    winPth=4; // диагональ от 0:2 к 2:0
+					for(byte j=0, z=2; j < 2; j++, z--)
 					{
-						return true;
+						if(btnGm[j][z].getText() != btnGm[j+1][z-1].getText())
+                        {
+                            winPth=0;
+							break;
+                        }
 					}
-					if( btnGm[j][i].getText() != btnGm[j+1][i].getText() )
-						break;
+                    if(winPth!=0)
+                        break;
+
 				}
+
+                winPth=1; // горизонталь
+				for(byte j=0; j < 2; j++)
+				{
+					if( btnGm[i][j].getText() != btnGm[i][j+1].getText() )
+                    {
+                        winPth=0;
+                        break;
+                    }
+				}
+                if(winPth!=0)
+                {
+                    winCor=i;
+                    break;
+                }
+
+                winPth=2; // вертикаль
+				for(byte j=0; j < 2; j++)
+				{
+					if( btnGm[j][i].getText() != btnGm[j+1][i].getText() )
+                    {
+                        winPth=0;
+						break;
+                    }
+				}
+                if(winPth!=0)
+                {
+                    winCor=i;
+                    break;
+                }
+
 			}
 		}
-		/*
-        for(int i=0; i < 3; i++)
-             if( !btnGm[0][i].getText().toString().equals("") && (btnGm[0][i].getText() == btnGm[1][i].getText() ) &&  ( btnGm[1][i].getText().toString()== btnGm[2][i].getText().toString() ) )
-             	win();
-		for(int i=0; i < 3; i++)
-			if( btnGm[i][0].getText().toString() != "" && (btnGm[i][0].getText().toString() == btnGm[i][0].getText().toString() ) &&  ( btnGm[i][1].getText().toString()== btnGm[i][2].getText().toString() ) )
-             	win();
-		
-		if( btnGm[0][2].getText().toString() != "" && (btnGm[0][2].getText() == btnGm[1][1].getText().charAt(0) == btnGm[0][2].getText().charAt(0) ) )
-			win();
-		*/
-    return false;    
+
+
+        if(winPth!=0)
+        {
+            for(Button btnx[]: btnGm)
+                for(Button btnxy: btnx)
+                    btnxy.setClickable(false);
+
+            switch (winPth) // выделяем победную линию =)
+            {
+                case 1:                 // горизонталь
+                    for(byte j=0; j < 3; j++)
+                        btnGm[winCor][j].setTextColor(Color.RED);
+                    break;
+                case 2:                 // вертикаль
+                    for(byte i=0; i < 3; i++)
+                        btnGm[i][winCor].setTextColor(Color.RED);
+                    break;
+                case 3:                 // диагональ от 0:0 к 2:2
+                    for(byte i=0; i < 3; i++)
+                        btnGm[i][i].setTextColor(Color.RED);
+                    break;
+                case 4:                 // диагональ от 0:2 к 2:0
+                    for(byte i=0, j=2; i < 3; i++, j--)
+                        btnGm[i][j].setTextColor(Color.RED);
+                    break;
+
+            }
+
+
+            txtWin.setText("Win " + btnLabel);
+
+            return true;
+        }
+
+        return(false);
     }
 
-    public void win()
-    {
-
-		for(byte i=0; i < 3; i++)
-			for(byte j=0; j < 3; j++)
-				btnGm[i][j].setClickable(false);
-        if (btnLabel == "X")
-            txtWin.setText("Win O");
-        else
-            txtWin.setText("Win X");
-    }
-	
 	public void reset()
 	{
-		for(byte i=0; i < 3; i++)
-			for(byte j=0; j < 3; j++)
-			{
-				btnGm[i][j].setClickable(true);
-				btnGm[i][j].setText("");
-			}
-		
+        for(Button btnx[]: btnGm)
+            for(Button btnxy: btnx)
+            {
+                btnxy.setClickable(true);
+                btnxy.setText("");
+                btnxy.setTextColor(Color.BLACK);
+            }
 		btnLabel = "X";
-		txtWin.setText("Goes: X");
+		txtWin.setText(R.string.game_start);
 	}
 
     @Override
@@ -180,21 +217,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				reset();
 				return;
         }
-		
-        if (btnLabel == "X")
-		{
-            btnLabel = "O";
-			txtWin.setText("Goes: O");
+
+        if(!checkWin())
+        {
+            if (btnLabel == "X")
+                btnLabel = "O";
+		    else
+                btnLabel = "X";
+
+            txtWin.setText("Goes: " + btnLabel);
         }
-		else
-		{
-            btnLabel = "X";
-			txtWin.setText("Goes: X");
-		}
-		
-		if(checkWin())
-			win();
-		
     }
 
 
