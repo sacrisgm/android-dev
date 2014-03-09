@@ -14,7 +14,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements View.OnClickListener{
 
     Button btnGm[][], btnRst;
-    TextView txtWin;
     String btnLabel = "X";
 	
     @Override
@@ -40,8 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             for(Button btnxy: btnx)
         		btnxy.setOnClickListener(this);
 		btnRst.setOnClickListener(this);
-
-        txtWin = (TextView) findViewById(R.id.txtWin);
+		
     }
 
 
@@ -151,16 +149,27 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
             }
 
-
-            txtWin.setText("Win " + btnLabel);
-
             return true;
         }
 
-        return(false);
+        return false;
     }
+	
+	private void selectTrueWay()
+	{
+		for(Button btnx[]: btnGm)
+            for(Button btnxy: btnx)
+            {
+                if(btnxy.getText() == "")
+				{
+					btnxy.setTextColor(Color.GRAY);
+					btnxy.setText(btnLabel);
+				}
+            }
+	}
+	
 
-	public void reset()
+	private void reset()
 	{
         for(Button btnx[]: btnGm)
             for(Button btnxy: btnx)
@@ -170,7 +179,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 btnxy.setTextColor(Color.BLACK);
             }
 		btnLabel = "X";
-		txtWin.setText(R.string.game_start);
 	}
 
     @Override
@@ -178,6 +186,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     {
         switch (v.getId()) {
             case R.id.btn00:
+				btnGm[0][0].setTextColor(Color.BLACK);
                 btnGm[0][0].setText(btnLabel);
 				btnGm[0][0].setClickable(false);
                 break;
@@ -224,8 +233,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 btnLabel = "O";
 		    else
                 btnLabel = "X";
-
-            txtWin.setText("Goes: " + btnLabel);
+			selectTrueWay();
         }
     }
 

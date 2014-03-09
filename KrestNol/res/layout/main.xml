@@ -4,28 +4,15 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:text="@string/game_start"
-		android:id="@+id/txtWin"
-		android:layout_marginTop="22dp"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-
-		android:gravity="center"/>
-
 	<Button
 		android:layout_width="75dp"
 		android:layout_height="75dp"
 		android:id="@+id/btn00"
-		android:layout_marginTop="50dp"
+		android:layout_marginTop="30dp"
 		android:height="75dp"
 		android:width="75dp"
 		android:layout_below="@+id/txtWin"
 		android:layout_alignParentLeft="true"
-
 		android:layout_marginLeft="29dp"/>
 
 	<Button
@@ -45,7 +32,6 @@
 		android:width="75dp"
 		android:layout_alignTop="@+id/btn01"
 		android:layout_alignParentRight="true"
-
 		android:layout_marginRight="26dp"/>
 
 	<Button
@@ -56,8 +42,7 @@
 		android:width="75dp"
 		android:layout_below="@+id/btn00"
 		android:layout_alignLeft="@+id/btn00"
-
-		android:layout_marginTop="50dp"/>
+		android:layout_marginTop="60dp"/>
 
 	<Button
 		android:layout_width="75dp"
@@ -85,7 +70,6 @@
 		android:layout_alignBaseline="@+id/btn21"
 		android:layout_alignBottom="@+id/btn21"
 		android:layout_alignLeft="@+id/btn10"
-
 		android:height="75dp"
 		android:width="75dp"/>
 
@@ -97,7 +81,7 @@
 		android:width="75dp"
 		android:layout_below="@+id/btn11"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="50dp"/>
+		android:layout_marginTop="60dp"/>
 
 	<Button
 		android:layout_width="75dp"
