@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-//import android.os.*;
-//import android.util.*; 
-//import android.app.*;
+
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
     Button btnGm[][], btnRst;
+    TextView textDebug;
     String btnLabel = "X";
+    byte clickCount=0;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +39,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
             for(Button btnxy: btnx)
         		btnxy.setOnClickListener(this);
 		btnRst.setOnClickListener(this);
-		
+
+        textDebug = (TextView) findViewById(R.id.textDebug);
+
     }
 
 
     private boolean checkWin()
     {
-        byte winCor=0, winPth=0;
-
+        boolean winFlag=false;
+        textDebug.setText("In checkWin");
         /*
         winPth направление линии победы
          0 - используем, как флаг ( отсутсвие победы )
@@ -58,114 +60,92 @@ public class MainActivity extends Activity implements View.OnClickListener{
 		
 		for(byte i=0; i < 3; i++)
 		{
-			if( !btnGm[i][i].getText().toString().equals("") )
+            textDebug.setText("In first for");
+			if( btnGm[i][i].getText().toString().equals(btnLabel) )
 			{
-				if( i == 1 )
+				if( i == 1 ) // проверка диагоналей
 				{
-                    winPth=3; // диагональ от 0:0 к 2:2
-                    for(byte j=0; j < 2; j++)
-                    {
-                        if(btnGm[j][j].getText() != btnGm[j+1][j+1].getText())
-                        {
-                            winPth=0;
-                            break;
-                        }
-                    }
-                    if(winPth!=0)
-                        break;
+                    textDebug.setText("In if i == 1");
+                    // диагональ от 0:0 к 2:2
+                    winFlag=false;
+                    for(byte j=0; j < 3; j++)
+                        if( btnGm[j][j].getText().toString().equals(btnLabel) )
+                            winFlag=true;
 
-                    winPth=4; // диагональ от 0:2 к 2:0
-					for(byte j=0, z=2; j < 2; j++, z--)
-					{
-						if(btnGm[j][z].getText() != btnGm[j+1][z-1].getText())
-                        {
-                            winPth=0;
-							break;
-                        }
-					}
-                    if(winPth!=0)
+                    if(winFlag)
+                    {
+                        for(byte j=0; j < 3; i++)
+                            btnGm[j][j].setTextColor(Color.RED);
                         break;
+                    }
+
+
+                    // диагональ от 0:2 к 2:0
+                    winFlag=false;
+					for(byte j=0, z=2; j < 3; j++, z--)
+						if( btnGm[j][z].getText().toString().equals(btnLabel) )
+                            winFlag=true;
+
+                    if(winFlag)
+                    {
+                        for(byte j=0, z=2; j < 3; j++, z--)
+                            btnGm[j][z].setTextColor(Color.RED);
+                        break;
+                    }
 
 				}
 
-                winPth=1; // горизонталь
-				for(byte j=0; j < 2; j++)
-				{
-					if( btnGm[i][j].getText() != btnGm[i][j+1].getText() )
-                    {
-                        winPth=0;
-                        break;
-                    }
-				}
-                if(winPth!=0)
+                // горизонталь
+                winFlag=false;
+				for(byte j=0; j < 3; j++)
+					if( btnGm[i][j].getText().toString().equals(btnLabel) )
+                        winFlag=true;
+
+                if(winFlag)
                 {
-                    winCor=i;
+                    for(byte j=0; j < 3; j++)
+                        btnGm[i][j].setTextColor(Color.RED);
                     break;
                 }
 
-                winPth=2; // вертикаль
-				for(byte j=0; j < 2; j++)
-				{
-					if( btnGm[j][i].getText() != btnGm[j+1][i].getText() )
-                    {
-                        winPth=0;
-						break;
-                    }
-				}
-                if(winPth!=0)
+                // вертикаль
+                winFlag=false;
+				for(byte j=0; j < 3; j++)
+					if( btnGm[j][i].getText().toString().equals(btnLabel) )
+                        winFlag=true;
+
+                if(winFlag)
                 {
-                    winCor=i;
+                    for(byte j=0; j < 3; j++)
+                        btnGm[j][i].setTextColor(Color.RED);
                     break;
                 }
 
 			}
 		}
 
-
-        if(winPth!=0)
+        if(winFlag)
         {
             for(Button btnx[]: btnGm)
                 for(Button btnxy: btnx)
                     btnxy.setClickable(false);
-
-            switch (winPth) // выделяем победную линию =)
-            {
-                case 1:                 // горизонталь
-                    for(byte j=0; j < 3; j++)
-                        btnGm[winCor][j].setTextColor(Color.RED);
-                    break;
-                case 2:                 // вертикаль
-                    for(byte i=0; i < 3; i++)
-                        btnGm[i][winCor].setTextColor(Color.RED);
-                    break;
-                case 3:                 // диагональ от 0:0 к 2:2
-                    for(byte i=0; i < 3; i++)
-                        btnGm[i][i].setTextColor(Color.RED);
-                    break;
-                case 4:                 // диагональ от 0:2 к 2:0
-                    for(byte i=0, j=2; i < 3; i++, j--)
-                        btnGm[i][j].setTextColor(Color.RED);
-                    break;
-
-            }
-
             return true;
         }
 
         return false;
     }
-	
+
+
 	private void selectTrueWay()
 	{
 		for(Button btnx[]: btnGm)
             for(Button btnxy: btnx)
-            {
+
                 if(btnxy.getText() == "")
 				{
 					btnxy.setTextColor(Color.GRAY);
 					btnxy.setText(btnLabel);
 				}
-            }
 	}
 	
 
@@ -178,8 +158,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 btnxy.setText("");
                 btnxy.setTextColor(Color.BLACK);
             }
+        clickCount = 0;
 		btnLabel = "X";
 	}
+
+
 
     @Override
     public void onClick(View v)
@@ -191,34 +174,42 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				btnGm[0][0].setClickable(false);
                 break;
             case R.id.btn01:
+                btnGm[0][0].setTextColor(Color.BLACK);
                 btnGm[0][1].setText(btnLabel);
 				btnGm[0][1].setClickable(false);
                 break;
             case R.id.btn02:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[0][2].setText(btnLabel);
 				btnGm[0][2].setClickable(false);
                 break;
             case R.id.btn10:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[1][0].setText(btnLabel);
 				btnGm[1][0].setClickable(false);
                 break;
             case R.id.btn11:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[1][1].setText(btnLabel);
 				btnGm[1][1].setClickable(false);
                 break;
             case R.id.btn12:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[1][2].setText(btnLabel);
 				btnGm[1][2].setClickable(false);
                 break;
             case R.id.btn20:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[2][0].setText(btnLabel);
 				btnGm[2][0].setClickable(false);
                 break;
             case R.id.btn21:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[2][1].setText(btnLabel);
 				btnGm[2][1].setClickable(false);
                 break;
             case R.id.btn22:
+                btnGm[0][0].setTextColor(Color.BLACK);
 				btnGm[2][2].setText(btnLabel);
 				btnGm[2][2].setClickable(false);
                 break;
@@ -226,15 +217,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				reset();
 				return;
         }
+        clickCount++;
 
-        if(!checkWin())
-        {
-            if (btnLabel == "X")
-                btnLabel = "O";
-		    else
-                btnLabel = "X";
-			selectTrueWay();
-        }
+        textDebug.setText("Debug check ok");
+
+        if(clickCount > 4) // победным может быть 5+ ход
+            if(checkWin())
+                return;
+
+        btnLabel = (btnLabel.equals("X") ? "O": "X");
+	   // selectTrueWay();
+
     }
 
 

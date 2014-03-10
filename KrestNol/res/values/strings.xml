@@ -3,5 +3,6 @@
 
     <string name="app_name">CrestNol</string>
     <string name="button_reset">Reset</string>
+    <string name="text_debug">Wait for debug information...</string>
 
 </resources>
