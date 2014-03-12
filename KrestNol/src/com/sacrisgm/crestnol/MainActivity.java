@@ -1,12 +1,10 @@
 package com.sacrisgm.crestnol;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -125,23 +123,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
             for(Button btnx[]: btnGm)
                 for(Button btnxy: btnx)
                     btnxy.setClickable(false);
+            //Toast.makeText(this, "Win: " + btnLabel + "!", Toast.LENGTH_LONG).show();
             return true;
         }
 
         return false;
     }
-
-
-	private void selectTrueWay()
-	{
-		for(Button btnx[]: btnGm)
-            for(Button btnxy: btnx)
-                if(btnxy.getText() == "")
-				{
-					btnxy.setTextColor(Color.GRAY);
-					btnxy.setText(btnLabel);
-				}
-	}
 	
 
 	private void reset()
@@ -165,47 +152,38 @@ public class MainActivity extends Activity implements View.OnClickListener{
     {
         switch (v.getId()) {
             case R.id.btn00:
-				btnGm[0][0].setTextColor(Color.BLACK);
                 btnGm[0][0].setText(btnLabel);
 				btnGm[0][0].setClickable(false);
                 break;
             case R.id.btn01:
-                btnGm[0][1].setTextColor(Color.BLACK);
                 btnGm[0][1].setText(btnLabel);
 				btnGm[0][1].setClickable(false);
                 break;
             case R.id.btn02:
-                btnGm[0][2].setTextColor(Color.BLACK);
 				btnGm[0][2].setText(btnLabel);
 				btnGm[0][2].setClickable(false);
                 break;
             case R.id.btn10:
-                btnGm[1][0].setTextColor(Color.BLACK);
 				btnGm[1][0].setText(btnLabel);
 				btnGm[1][0].setClickable(false);
                 break;
             case R.id.btn11:
-                btnGm[1][1].setTextColor(Color.BLACK);
 				btnGm[1][1].setText(btnLabel);
 				btnGm[1][1].setClickable(false);
                 break;
             case R.id.btn12:
-                btnGm[1][2].setTextColor(Color.BLACK);
 				btnGm[1][2].setText(btnLabel);
 				btnGm[1][2].setClickable(false);
                 break;
             case R.id.btn20:
-                btnGm[2][0].setTextColor(Color.BLACK);
 				btnGm[2][0].setText(btnLabel);
 				btnGm[2][0].setClickable(false);
                 break;
             case R.id.btn21:
-                btnGm[2][1].setTextColor(Color.BLACK);
 				btnGm[2][1].setText(btnLabel);
 				btnGm[2][1].setClickable(false);
                 break;
             case R.id.btn22:
-                btnGm[2][2].setTextColor(Color.BLACK);
 				btnGm[2][2].setText(btnLabel);
 				btnGm[2][2].setClickable(false);
                 break;
@@ -221,8 +199,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 return;
 		
         btnLabel = (btnLabel == "X" ? "O": "X");
-	    //selectTrueWay();
-
     }
 
 
