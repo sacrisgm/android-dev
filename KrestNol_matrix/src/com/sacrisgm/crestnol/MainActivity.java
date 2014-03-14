@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 					if(winFlag)
                     {
                         for(byte j=0; j < str; j++)
-                            btnGm[j][j].setTextColor(Color.RED);
+                            btnGm[j][j].setBackgroundColor(Color.BLUE);
                         break;
                     }
 
@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 					if(winFlag)
                     {
                         for(byte j=0, z=(byte)(col-1); j < str; j++, z--)
-                            btnGm[j][z].setTextColor(Color.RED);
+                            btnGm[j][z].setBackgroundColor(Color.BLUE);
                         break;
                     }
 					
@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 if(winFlag)
                 {
                     for(byte j=0; j < col; j++)
-                        btnGm[i][j].setTextColor(Color.RED);
+                        btnGm[i][j].setBackgroundColor(Color.BLUE);
                     break;
                 }
 
@@ -118,7 +118,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 if(winFlag)
                 {
                     for(byte j=0; j < str; j++)
-                        btnGm[j][i].setTextColor(Color.RED);
+                        btnGm[j][i].setBackgroundColor(Color.BLUE);
                     break;
                 }
 
@@ -156,7 +156,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				area[i][j]=0;
 				btnGm[i][j].setText("");
 				btnGm[i][j].setClickable(true);
-				//btnGm[i][j].setBackgroundColor(Color.LTGRAY);
+				btnGm[i][j].setBackgroundColor(getResources().getColor(R.color.area));
+                btnGm[i][j].setTextSize(15);
 			}
 			
         clickCount = 0;
@@ -178,28 +179,30 @@ public class MainActivity extends Activity implements View.OnClickListener{
 			{
 				if(area[i][j]==1)
 				{
-					btnGm[i][j].setTextColor(Color.BLACK);
+					btnGm[i][j].setTextColor(0xff000000);
+                    btnGm[i][j].setTextSize(20);
 					btnGm[i][j].setText("O");
 					btnGm[i][j].setClickable(false);
 				}
 
 				if(area[i][j]==2)
 				{
-					btnGm[i][j].setTextColor(Color.BLACK);
+					btnGm[i][j].setTextColor(0xff000000);
+                    btnGm[i][j].setTextSize(20);
 					btnGm[i][j].setText("X");
 					btnGm[i][j].setClickable(false);
 				}
 				
 				if(area[i][j]==3)
 				{
-					btnGm[i][j].setTextColor(Color.WHITE);
+					btnGm[i][j].setTextColor(0xff8f8f8f);
 					btnGm[i][j].setText("O");
 				}
 				
 
 				if(area[i][j]==4)
 				{
-					btnGm[i][j].setTextColor(Color.WHITE);
+					btnGm[i][j].setTextColor(0xff8f8f8f);
 					btnGm[i][j].setText("X");
 				}	
 				
