@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AreaCheck</string>
+    <string name="btn_rst">Reset</string>
+    <string name="txt_check">Wait you =)</string>
+
+</resources>
